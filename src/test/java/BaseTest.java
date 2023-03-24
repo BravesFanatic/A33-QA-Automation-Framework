@@ -4,27 +4,38 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
+
 import java.time.Duration;
 import java.util.UUID;
 
 public class BaseTest {
 
     public WebDriver driver = null;
-    public String url = "https://bbb.testpro.io/";
+
+    public WebDriverWait wait = null;
+
+    public String url = null;
+
     @BeforeSuite
     static void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
     @BeforeMethod
-    public void launchBrowser() {
+    @Parameters("baseUrl")
+    public void launchBrowser(String baseUrl) {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-notifications");
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        url = baseUrl;
+        driver.get(url);
     }
     @AfterMethod
     public  void closeBrowser(){
@@ -35,6 +46,14 @@ public class BaseTest {
         driver.get(url);
     }
     public void login(String email, String password) throws InterruptedException {
+//        WebElement emailField = driver.findElement(By.cssSelector("[type = 'email']"));
+//        emailField.sendKeys(email);
+//
+//        WebElement passwordField = driver.findElement(By.cssSelector("[type = 'password']"));
+//        passwordField.sendKeys(password);
+//
+//        WebElement submitButton = driver.findElement(By.cssSelector("[type = 'submit']"));
+//        submitButton.click();
         provideEmail(email);
         providePassword(password);
         clickSubmit();
