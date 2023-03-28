@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -45,7 +46,7 @@ public class BaseTest {
         String url = "https://bbb.testpro.io/";
         driver.get(url);
     }
-    public void login(String email, String password) throws InterruptedException {
+    public void login(String email, String password)   {
 //        WebElement emailField = driver.findElement(By.cssSelector("[type = 'email']"));
 //        emailField.sendKeys(email);
 //
@@ -58,11 +59,11 @@ public class BaseTest {
         providePassword(password);
         clickSubmit();
     }
-    public void clickSubmit() throws InterruptedException {
-        WebElement submitButton = driver.findElement(By.cssSelector("button[type='submit']"));
+    public void clickSubmit()   {
+       WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type='submit']")));//after refactor
+//before refactor       WebElement submitButton  = driver.findElement(By.cssSelector("button[type='submit']"));
         submitButton.click();
-        Thread.sleep(2000);
-    }
+      }
     public void providePassword(String password) {
         WebElement passwordField = driver.findElement(By.cssSelector("[type='password']"));
         passwordField.clear();

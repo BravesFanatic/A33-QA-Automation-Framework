@@ -1,6 +1,7 @@
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 
 public class Homework17 extends BaseTest {
@@ -22,33 +23,26 @@ public class Homework17 extends BaseTest {
         }
 //this is the closing curly bracket for the @Test case
 //    We will start with creating test methods after that line or the bracket
-    public void searchSong (String songTitleKeyword) throws InterruptedException {
-        WebElement searchField = driver.findElement(By.cssSelector("div#searchForm input[type=search]"));
+    public void searchSong (String songTitleKeyword)   {
+        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div#searchForm input[type=search]")));
         searchField.sendKeys(songTitleKeyword);
-        Thread.sleep(3000);
     }
-
-    public void clickViewAllButton() throws InterruptedException {
-        WebElement viewAllBtn = driver.findElement(By.cssSelector("section.songs h1 button"));
+    public void clickViewAllButton()  {
+        WebElement viewAllBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section.songs h1 button")));
         viewAllBtn.click();
-        Thread.sleep(2000);
     }
-
-    public void selectFirstSongResult() throws InterruptedException {
-        WebElement firstSongElement = driver.findElement(By.cssSelector("#songResultsWrapper tr.song-item:nth-child(1)"));
+    public void selectFirstSongResult()  {
+        WebElement firstSongElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#songResultsWrapper tr.song-item:nth-child(1)")));
         firstSongElement.click();
-        Thread.sleep(2000);
     }
-    public void clickAddToPlaylistButton() throws InterruptedException {
-        WebElement addToBtn = driver.findElement(By.cssSelector("#songResultsWrapper > header > div.song-list-controls > span > button.btn-add-to"));
+    public void clickAddToPlaylistButton()  {
+        WebElement addToBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#songResultsWrapper > header > div.song-list-controls > span > button.btn-add-to")));
         addToBtn.click();
-        Thread.sleep(3000);
     }
 
-    public void choosePlaylist() throws InterruptedException {
-        WebElement clickPlaylist = driver.findElement(By.cssSelector("#songResultsWrapper > header > div.song-list-controls > div > section.existing-playlists > ul > li:nth-child(6)"));
+    public void choosePlaylist() {
+        WebElement clickPlaylist = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#songResultsWrapper > header > div.song-list-controls > div > section.existing-playlists > ul > li:nth-child(6)")));
         clickPlaylist.click();
-        Thread.sleep(2000);
     }
 
     public String getPlaylistAddedMsg() throws InterruptedException {
