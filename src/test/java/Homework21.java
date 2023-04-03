@@ -8,14 +8,15 @@ import org.testng.annotations.Test;
 
 public class Homework21 extends BaseTest {
 
-    String playlistName = "Jose Edited Playlist";
+    String playlistName = "Jose Edited Playlistss";
+
     @Test
     public void renamePlayList() {
         login("jose@test.com", "te$t$tudent");
         choosePlaylist();
         contextClickChoosePlayList();
         enterPlaylistName();
-        Assert.assertTrue(doesPlaylistExist());
+        Assert.assertEquals(getPlaylistName(), playlistName);
     }
 
     public void choosePlaylist() {
@@ -35,10 +36,11 @@ public class Homework21 extends BaseTest {
         playlistInputField.sendKeys(playlistName);
         playlistInputField.sendKeys(Keys.ENTER);
     }
+    public String getPlaylistName() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".playlist:nth-child(3)")));
+       WebElement playlistElement = driver.findElement(By.cssSelector(".playlist:nth-child(3)"));
+       return playlistElement.getText();
+ }
 
-    public boolean doesPlaylistExist() {
-        WebElement playlistElement = driver.findElement(By.xpath("//a[text()='" + playlistName + "']"));
-        return playlistElement.isDisplayed();
-    }
 }
 
