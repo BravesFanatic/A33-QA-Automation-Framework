@@ -37,8 +37,8 @@ public class Homework21 extends BaseTest {
         playlistInputField.sendKeys(Keys.ENTER);
     }
     public String getPlaylistName() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".playlist:nth-child(3)")));
-       WebElement playlistElement = driver.findElement(By.cssSelector(".playlist:nth-child(3)"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".playlist:nth-child(3) a")));
+       WebElement playlistElement = driver.findElement(By.cssSelector(".playlist:nth-child(3) a"));
        return playlistElement.getText();
  }
 
