@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 public class Homework21 extends BaseTest {
 
-    String playlistName = "Jose Edited Playlistss";
+    String playlistName = "Jose Edited Playlists 2";
 
     @Test
     public void renamePlayList() {
@@ -32,7 +32,7 @@ public class Homework21 extends BaseTest {
 
     public void enterPlaylistName() {
         WebElement playlistInputField = driver.findElement(By.cssSelector("input[name='name']"));
-        playlistInputField.sendKeys((Keys.chord(Keys.COMMAND, "a", Keys.BACK_SPACE)));//this code simulates a select all and backspace to delete the current playlist name
+        playlistInputField.sendKeys((Keys.chord(Keys.COMMAND, "a", Keys.DELETE)));//this code simulates a select all and backspace to delete the current playlist name
         playlistInputField.sendKeys(playlistName);
         playlistInputField.sendKeys(Keys.ENTER);
     }
