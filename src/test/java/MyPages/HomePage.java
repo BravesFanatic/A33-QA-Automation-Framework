@@ -28,7 +28,7 @@ public class HomePage extends BasePage{
     public void enterPlaylistName(String playlistName) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(playlistNameField));
         WebElement playlistInputField = driver.findElement(playlistNameField);
-        playlistInputField.sendKeys((Keys.chord(Keys.COMMAND, "a", Keys.BACK_SPACE)));//this code simulates a select all and backspace to delete the current playlist name
+        playlistInputField.sendKeys((Keys.chord(Keys.COMMAND, "a", Keys.DELETE)));//this code simulates a select all and backspace to delete the current playlist name
         playlistInputField.sendKeys(playlistName);
         playlistInputField.sendKeys(Keys.ENTER);
     }
