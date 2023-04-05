@@ -41,6 +41,5 @@ public class Homework21 extends BaseTest {
        WebElement playlistElement = driver.findElement(By.cssSelector(".playlist:nth-child(3) a"));
        return playlistElement.getText();
  }
-
 }
 
