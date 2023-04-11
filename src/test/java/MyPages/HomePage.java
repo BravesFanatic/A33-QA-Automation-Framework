@@ -37,7 +37,7 @@ public class HomePage extends BasePage{
 
     public void enterPlaylistName(String playlistName) {
         wait.until(ExpectedConditions.visibilityOf(playlistNameFieldElement));
-        playlistNameFieldElement.sendKeys((Keys.chord(Keys.COMMAND, "a", Keys.BACK_SPACE)));//this code simulates a select all and backspace to delete the current playlist name
+        playlistNameFieldElement.sendKeys((Keys.chord(Keys.CONTROL, "a", Keys.BACK_SPACE)));//this code simulates a select all and backspace to delete the current playlist name
         playlistNameFieldElement.sendKeys(playlistName);
         playlistNameFieldElement.sendKeys(Keys.ENTER);
     }
