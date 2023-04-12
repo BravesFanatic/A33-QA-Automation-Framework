@@ -27,67 +27,47 @@ import java.util.UUID;
 public class BaseTest {
 
     public WebDriver driver = null;
-
     public WebDriverWait wait = null;
-
     Actions actions = null;
-
     public String url = null;
 
-    public WebDriver lambdatest() throws MalformedURLException {
-        String hubURL = "https://hub.lambdatest.com/wd/hub";
-        ChromeOptions browserOptions = new ChromeOptions();
-        browserOptions.setPlatformName("Windows 10");
-        browserOptions.setBrowserVersion("110.0");
-        HashMap<String, Object> ltOptions = new HashMap<String, Object>();
-        ltOptions.put("username", "officerjopmba");
-        ltOptions.put("accessKey", "xwoA4zia6d1yhaYS1Rgl4KIr0tB5udJoyqdo5KUTqP7vRHlwPE");
-        ltOptions.put("proje ct", "Test Project");
-        ltOptions.put("w3c", true);
-        browserOptions.setCapability("LT:Options", ltOptions);
-
-        return new RemoteWebDriver(new URL(hubURL), browserOptions);
-    }
-
+    public ThreadLocal <WebDriver> threadDriver;
 
     @BeforeSuite
     static void setupClass() {
 //        WebDriverManager.chromedriver().setup();
     }
+    public WebDriver getDriver(){
+        return threadDriver.get();
+    }
     @BeforeMethod
     @Parameters("baseUrl")
     public void launchBrowser(String baseUrl) throws MalformedURLException {
+        threadDriver = new ThreadLocal<>();
         driver = pickBrowser( System.getProperty("browser"));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        actions = new Actions(driver);
+        threadDriver.set(driver);
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        wait = new WebDriverWait( getDriver(), Duration.ofSeconds(20));
+        actions = new Actions( getDriver());
         url = baseUrl;
-        driver.get(url);
+        getDriver().get(url);
     }
     @AfterMethod
     public  void closeBrowser(){
-        driver.quit();
+        getDriver().quit();
+        threadDriver.remove();
     }
     public void navigateToPage() {
         String url = "https://bbb.testpro.io/";
         driver.get(url);
     }
     public void login(String email, String password)   {
-//        WebElement emailField = driver.findElement(By.cssSelector("[type = 'email']"));
-//        emailField.sendKeys(email);
-//
-//        WebElement passwordField = driver.findElement(By.cssSelector("[type = 'password']"));
-//        passwordField.sendKeys(password);
-//
-//        WebElement submitButton = driver.findElement(By.cssSelector("[type = 'submit']"));
-//        submitButton.click();
         provideEmail(email);
         providePassword(password);
         clickSubmit();
     }
     public void clickSubmit()   {
-       WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type='submit']")));//after refactor
-//before refactor       WebElement submitButton  = driver.findElement(By.cssSelector("button[type='submit']"));
+       WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type='submit']")));
         submitButton.click();
       }
     public void providePassword(String password) {
@@ -122,7 +102,6 @@ public class BaseTest {
         avatarIcon.click();
     }
 
-
     private WebDriver pickBrowser(String browser) throws MalformedURLException {
         DesiredCapabilities caps = new DesiredCapabilities();
         String gridURL = "http://192.168.1.80:4444";
@@ -154,8 +133,23 @@ public class BaseTest {
                 options.addArguments("--remote-allow-origins=*");
                 options.addArguments("--disable-notifications");
                 return driver = new ChromeDriver(options);
-
         }
-
     }
+            public WebDriver lambdatest() throws MalformedURLException {
+                String hubURL = "https://hub.lambdatest.com/wd/hub";
+                ChromeOptions browserOptions = new ChromeOptions();
+                browserOptions.setPlatformName("Windows 10");
+                browserOptions.setBrowserVersion("110.0");
+                HashMap<String, Object> ltOptions = new HashMap<String, Object>();
+                ltOptions.put("username", "officerjopmba");
+                ltOptions.put("accessKey", "xwoA4zia6d1yhaYS1Rgl4KIr0tB5udJoyqdo5KUTqP7vRHlwPE");
+                ltOptions.put("project", "Test Project");
+                ltOptions.put("w3c", true);
+
+                browserOptions.setCapability("LT:Options", ltOptions);
+
+                return new RemoteWebDriver(new URL(hubURL), browserOptions);
+            }
+
+
 }
