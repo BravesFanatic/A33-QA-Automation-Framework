@@ -17,6 +17,9 @@ public class HomePage extends BasePage{
 
 //    Page Factory
 
+    @FindBy(css = "img.avatar")
+    WebElement avatarElement;
+
     @FindBy(css = ".playlist:nth-child(3)")
     WebElement firstUserPlaylistElement;
 
@@ -44,5 +47,9 @@ public class HomePage extends BasePage{
     public String getPlaylistName() {
         wait.until(ExpectedConditions.visibilityOf(playlistNameTextElement));
         return playlistNameTextElement.getText();
+    }
+
+    public boolean isAvatarDisplayed(){
+        return avatarElement.isDisplayed();
     }
 }
