@@ -19,7 +19,9 @@
 <!--            <class name="Homework23"/>-->
 <!--                <class name="Homework24"/>-->
 <!--                <class name="Homework25"/>-->
-            <class name="CucumberRunner"/>
+<!--            <class name="CucumberRunner"/>-->
+            <class name="PlaylistTests"/>
+            <class name="SongTests"/>
         </classes>
     </test>
 </suite>

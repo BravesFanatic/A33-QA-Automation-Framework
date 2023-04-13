@@ -8,6 +8,8 @@ import java.util.Collection;
 
 public class Homework19 extends BaseTest {
     @Test
+
+
     public void deletePlaylist()   {
         String deletedPlaylistMsg = "Deleted playlist";
         login("jose@test.com", "te$t$tudent");
