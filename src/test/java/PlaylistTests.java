@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class PlaylistTests extends BaseTest {
-    @Test //first test case
+    @Test (priority=2)
     public void addSongToPlaylist()  {
 
         String addSongExpectedPopUpMsg = "Added 1 song into";
@@ -16,7 +16,7 @@ public class PlaylistTests extends BaseTest {
         loginPage.providePassword("te$t$tudent");
         loginPage.clickSubmit();
 
-        homePage.searchSong("Gray");
+        homePage.searchSong("Pluto");
         homePage.clickViewAllButton();
         homePage.selectFirstSongResult();
         homePage.clickAddToPlaylistButton();
@@ -24,7 +24,7 @@ public class PlaylistTests extends BaseTest {
         Assert.assertTrue(homePage.getPlaylistAddedMsg().contains(addSongExpectedPopUpMsg));
     }
 
-    @Test //second test case
+    @Test (priority=1)
     public void deletePlaylist()   {
 
         String deletedPlaylistExpectedPopUpMsg = "Deleted playlist";
