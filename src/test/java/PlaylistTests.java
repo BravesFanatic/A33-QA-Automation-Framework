@@ -16,7 +16,7 @@ public class PlaylistTests extends BaseTest {
         loginPage.providePassword("te$t$tudent");
         loginPage.clickSubmit();
 
-        homePage.searchSong("Pluto");
+        homePage.searchSong("Take my hand");
         homePage.clickViewAllButton();
         homePage.selectFirstSongResult();
         homePage.clickAddToPlaylistButton();
